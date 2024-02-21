@@ -1,6 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { openOrCloseAddOrEdit } from '../../actions/posts';
+import { Detector } from "react-detect-offline";
+import Button from 'react-bootstrap/Button';
+
 
 export const AddButtonFab = () => {
 
@@ -12,11 +15,16 @@ export const AddButtonFab = () => {
 
 
     return (
-        <button
-            className="btn btn-primary fab"
-            onClick={ handleClickNew }
-        >
-            <i className="fas fa-plus"></i>
-        </button>
+        <Detector
+            render={({ online }) => {
+                return <Button
+                    className="btn btn-primary fab"
+                    onClick={ handleClickNew }
+                    disabled={ !online }
+                >
+                    <i className="fas fa-plus"></i>
+                </Button>
+            }}
+        />
     )
 }

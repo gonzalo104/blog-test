@@ -3,6 +3,7 @@ import { Card, Button, Col, Row, Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { openOrCloseAddOrEdit, openOrCloseDetails, deletePost } from '../../actions/posts';
 import { formatDate } from "../../helpers/formatterDate";
+import { Detector } from "react-detect-offline";
 
 export const ListPosts = ({ items }) => {
   const dispatch = useDispatch();
@@ -25,15 +26,18 @@ export const ListPosts = ({ items }) => {
                 </Card.Body>
                 <Card.Footer style={{ backgroundColor: '#f8f9fa', borderTop: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <small className="text-muted" style={{ margin: '0' }}>{formatDate(post.created_at)}</small>
-                  <Dropdown>
+                  <Dropdown disabled={true}>
                     <Dropdown.Toggle variant="secondary" id="dropdown-basic">
                       <i className="fas fa-cog"></i>
                     </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                        <Dropdown.Item onClick={() => handleEdit(post)} ><i className="fas fa-edit"></i> Editar</Dropdown.Item>
-                        <Dropdown.Item onClick={() => handleDelete(post.id)}><i className="fas fa-trash-alt"></i> Eliminar</Dropdown.Item>
-                    </Dropdown.Menu>
+                    <Detector
+                      render={({ online }) => {
+                        return ( <Dropdown.Menu>
+                            <Dropdown.Item disabled={!online} onClick={() => handleEdit(post)} ><i className="fas fa-edit"></i> Editar</Dropdown.Item>
+                            <Dropdown.Item disabled={!online} onClick={() => handleDelete(post.id)}><i className="fas fa-trash-alt"></i> Eliminar</Dropdown.Item>
+                          </Dropdown.Menu> )
+                      }}
+                    />
                 </Dropdown>
                   <Button variant="primary" onClick={() => handleOpen(post)}>Leer más</Button>
                 </Card.Footer>
