@@ -59,7 +59,7 @@ npm install
 ```
 
 ### Correr la aplicación (PWA)
-* Dado que se desarrollo una PWA (Aplicación Web Progresiva) es recomendable correr la aplicación en modo producción para que se vea reflejado el modo Offline.
+* Dado que se desarrolló una PWA (Aplicación Web Progresiva) es recomendable correr la aplicación en modo producción para que se vea reflejado el modo Offline.
 
 * Primero, construir la app modo producción:
 ```bash
